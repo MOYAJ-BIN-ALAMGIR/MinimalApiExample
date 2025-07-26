@@ -8,12 +8,12 @@ app.MapGet("/", () =>
     return "Hello World ";
 });
 
-app.MapPost("/", (Post post) =>
+app.MapPost("/api/post", (Post post) =>
 {
     return Results.Ok(post);
 
 });
-app.MapPut("/", (string name) =>
+app.MapPut("/api/put", (string name) =>
 {
     return Results.Ok("Hello " + name);
 });
