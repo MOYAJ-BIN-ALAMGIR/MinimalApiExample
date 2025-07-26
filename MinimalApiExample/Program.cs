@@ -1,3 +1,6 @@
+using MinimalApiExample;
+using System.Xml.Linq;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 app.MapGet("/", () =>
@@ -5,14 +8,14 @@ app.MapGet("/", () =>
     return "Hello World ";
 });
 
-app.MapPost("/", () =>
+app.MapPost("/", (Post post) =>
 {
-    return Results.Ok("Call post action method");
+    return Results.Ok(post);
 
 });
-app.MapPut("/", () =>
+app.MapPut("/", (string name) =>
 {
-    return Results.Ok("Call put Action Method");
+    return Results.Ok("Hello " + name);
 });
 app.MapDelete("/", () =>
 {
