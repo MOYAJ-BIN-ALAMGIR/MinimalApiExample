@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseInMemoryDatabase("TestDB");
+    //options.UseInMemoryDatabase("TestDB");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MinimalDbConnection"));
 });
 
 var app = builder.Build();
