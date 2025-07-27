@@ -47,4 +47,26 @@ app.MapPost("/posts", (Post post, ApplicationDbContext db) =>
     return Results.BadRequest("post saved faild.");
 });
 
+app.MapPut("/posts", (int id, Post post, ApplicationDbContext db) =>
+    {
+        var data = db.Posts.FirstOrDefault(c => c.Id == id);
+        if(data == null)
+        {
+            return Results.NotFound();
+        }
+        if(data.Id != post.Id)
+        {
+            return Results.BadRequest("Id not valid");
+        }
+        data.Title = post.Title;
+        data.Description = post.Description;
+        bool isupdated = db.SaveChanges() > 0;
+        if(isupdated)
+        {
+            return Results.Ok("Posts has been modified.");
+        }
+        return Results.BadRequest("Post modified faild");
+            
+    });
+
 app.Run();
