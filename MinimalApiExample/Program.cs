@@ -36,4 +36,15 @@ app.MapGet("/posts", (ApplicationDbContext db) =>
         return Results.Ok(posts);
 });
 
+app.MapPost("/posts", (Post post, ApplicationDbContext db) =>
+{
+    db.Posts.Add(post);
+    bool issaved = db.SaveChanges() > 0;
+    if (issaved)
+    {
+        return Results.Ok("Post has been made.");
+    }
+    return Results.BadRequest("post saved faild.");
+});
+
 app.Run();
