@@ -68,5 +68,19 @@ app.MapPut("/posts", (int id, Post post, ApplicationDbContext db) =>
         return Results.BadRequest("Post modified faild");
             
     });
+app.MapDelete("/posts", (int id, ApplicationDbContext db) =>
+{
+    var post = db.Posts.FirstOrDefault(c => c.Id == id);
+    if (post == null)
+    {
+        return Results.NotFound();
+    }
+    db.Posts.Remove(post);
+    if (db.SaveChanges() > 0)
+    {
+        return Results.Ok("Post has been deleted.");
+    }
+    return Results.BadRequest("Post delet failed.");
+});
 
 app.Run();
